@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title%}Páginal Inicial '{{task.title}}'  {% endblock  %}
+
+
+
+{% block content %}
+
+
+<div class="offset-1 col-10 list-div">
+    <h1 class="greeting col-sm-13 text-center m-auto display-1 font-weight-bold align-items-center align-self-center align-middle"> Seja bem vindo ao organize tasks</h1>
+    <h2>lista de tarefas</h2>
+
+    <div class="col-9 search-div"> <!--BUSCA-->
+        <form method="GET" id="search-form"><!--metod get ulizado em buscas-->
+            <input class="form-control" type="text" id="search" name="search"
+                placeholder="Digite o nome da tarefa para buscar">
+            <i class="fas fa-search" id="search"></i>
+        </form>
+    </div>
+
+
+    <ul class="task-list">
+        {% for task in tasks%}
+        <li class="task-item">
+            <span><a href="/task/{{task.id}}"> {{task.title}}
+                </a></span><!--entart em cada tarefaespecifica,imprimindo o id/titulo-->
+                
+        </li>
+        {% endfor %}
+
+
+    </ul>
+
+
+</div>
+
+<!--------------------------PAGINAÇÃO------------------------------------------>
+<div class="pagination"> <!--botão para frente e para trás-->
+    <span class="step-links">
+        {% if tasks.has_previous %}
+        <!---link para a página anterior-->
+        <a href="?page={{ tasks.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+        {% endif %}
+
+        {% if tasks.paginator.num_pages %}
+        <span class="current"> <!-- mostrar a página que o usuario está atualmente-->
+            {{ tasks.number }} de {{ tasks.paginator.num_pages }}
+        </span>
+        {% endif %}
+
+
+        {% if tasks.has_next %} <!---verifica se tem a pagina proxima-->
+        <!---link para a página anterior-->
+        <a href="?page={{ tasks.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+        {% endif %}
+</div>
+
+
+{% endblock %}
+
+    
+
